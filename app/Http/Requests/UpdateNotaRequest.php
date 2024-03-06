@@ -22,7 +22,22 @@ class UpdateNotaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'onda_id' => 'required',
+            'notaParcial1' => 'required',
+            'notaParcial2' => 'required',
+            'notaParcial3' => 'required',
+        ];
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'required' => 'O campo :attribute é obrigatório.',
         ];
     }
 }

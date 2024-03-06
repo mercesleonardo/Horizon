@@ -22,7 +22,22 @@ class StoreNotaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'onda_id' => 'required',
+            'notaParcial1' => 'required',
+            'notaParcial2' => 'required',
+            'notaParcial3' => 'required',
+        ];
+    }
+
+    /**
+     * Obtenha mensagens de erro personalizadas para as regras de validação.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'required' => 'O campo :attribute é obrigatório.',
         ];
     }
 }

@@ -8,13 +8,14 @@ use App\Http\Requests\UpdateNotaRequest;
 
 class NotaController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $notas = Nota::all();
-        return $notas;
+        return response()->json($notas, 200);
     }
 
     /**
@@ -22,8 +23,13 @@ class NotaController extends Controller
      */
     public function store(StoreNotaRequest $request)
     {
-        Nota::create($request->all());
-        return response()->json("Dados cadastrados com sucesso");
+
+        $nota = Nota::create($request->all());
+
+        return response()->json([
+            'message' => 'Nota cadastrada com sucesso',
+            'nota' => $nota
+        ], 200);
     }
 
     /**
@@ -31,8 +37,13 @@ class NotaController extends Controller
      */
     public function show($id)
     {
-        $nota = Nota::where('id', $id)->first();
-        return $nota;
+        $nota = Nota::find($id);
+
+        if (!$nota) {
+            return response()->json("Recurso solicitado não existe", 404);
+        }
+
+        return response()->json($nota, 200);
     }
 
     /**
@@ -40,10 +51,25 @@ class NotaController extends Controller
      */
     public function update(UpdateNotaRequest $request, $id)
     {
+        $nota = Nota::find($id);
+
+        if (!$nota) {
+            return response()->json("Nota não encontrada", 404);
+        }
+
         $data = $request->all();
-        Nota::where('id', $id)->update($data);
-        return response()->json("Dados atualizados com sucesso");
-        
+
+        if (empty($data)) {
+            return response()->json("Nenhum dado fornecido para atualização", 400);
+        }
+
+        $nota->update($data);
+
+        return response()->json([
+            'message' => 'Nota atualizada com sucesso',
+            'nota' => $nota
+        ], 200);
+
     }
 
     /**
@@ -51,7 +77,14 @@ class NotaController extends Controller
      */
     public function destroy($id)
     {
-        Nota::where('id', $id)->delete();
+        $nota = Nota::find($id);
+
+        if (!$nota) {
+            return response()->json("Não foi possível excluir a nota, recurso não encontrado", 404);
+        }
+
+        $nota->delete();
+
         return response()->json("Dados removidos com sucesso");
     }
 }

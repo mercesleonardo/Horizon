@@ -15,4 +15,5 @@ class Nota extends Model
     {
         return $this->belongsTo(Onda::class);
     }
+
 }
