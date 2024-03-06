@@ -29,13 +29,3 @@ Route::apiResources([
     'nota' => NotaController::class,
 ]);
 
-// Route::apiResource('surfista', SurfistaController::class)->parameters(['sufistum'=>'surfista']);
-// Route::apiResource('bateria', BateriaController::class)->parameters(['baterium'=>'bateria']);
-// Route::apiResource('onda', OndaController::class);
-// Route::apiResource('nota', NotaController::class)->parameters(['notum'=>'nota']);
-
-// Route::apiResource('surfista', SurfistaController::class);
-// Route::apiResource('bateria', BateriaController::class);
-// Route::apiResource('onda', OndaController::class);
-// Route::apiResource('nota', NotaController::class);
-

@@ -22,8 +22,8 @@ class SurfistaController extends Controller
      */
     public function store(StoreSurfistaRequest $request)
     {
-        $data = Surfista::create($request->all());
-        return $data;
+        Surfista::create($request->all());
+        return response()->json("Dados cadastrados com sucesso");
     }
 
     /**
@@ -31,10 +31,7 @@ class SurfistaController extends Controller
      */
     public function show($id)
     {
-        // dd($id);
-
         $surfista = Surfista::where('numero', $id)->first();
-
         return $surfista;
     }
 
@@ -46,7 +43,7 @@ class SurfistaController extends Controller
 
         $data = $request->all();
         Surfista::where('numero', $id)->update($data);
-        return response()->json("Dados atualizado com sucesso");
+        return response()->json("Dados atualizados com sucesso");
     }
 
     /**

@@ -13,7 +13,8 @@ class NotaController extends Controller
      */
     public function index()
     {
-        //
+        $notas = Nota::all();
+        return $notas;
     }
 
     /**
@@ -21,30 +22,36 @@ class NotaController extends Controller
      */
     public function store(StoreNotaRequest $request)
     {
-        //
+        Nota::create($request->all());
+        return response()->json("Dados cadastrados com sucesso");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Nota $nota)
+    public function show($id)
     {
-        //
+        $nota = Nota::where('id', $id)->first();
+        return $nota;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateNotaRequest $request, Nota $nota)
+    public function update(UpdateNotaRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        Nota::where('id', $id)->update($data);
+        return response()->json("Dados atualizados com sucesso");
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Nota $nota)
+    public function destroy($id)
     {
-        //
+        Nota::where('id', $id)->delete();
+        return response()->json("Dados removidos com sucesso");
     }
 }

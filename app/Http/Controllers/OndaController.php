@@ -13,7 +13,8 @@ class OndaController extends Controller
      */
     public function index()
     {
-        //
+        $ondas = Onda::all();
+        return $ondas;
     }
 
     /**
@@ -21,7 +22,8 @@ class OndaController extends Controller
      */
     public function store(StoreOndaRequest $request)
     {
-        //
+        $data = Onda::create($request->all());
+        return $data;
     }
 
     /**
@@ -29,7 +31,7 @@ class OndaController extends Controller
      */
     public function show(Onda $onda)
     {
-        //
+        return $onda;
     }
 
     /**
@@ -37,7 +39,8 @@ class OndaController extends Controller
      */
     public function update(UpdateOndaRequest $request, Onda $onda)
     {
-        //
+        $onda->update($request->all());
+        return response()->json("Dados atualizados com sucesso");
     }
 
     /**
@@ -45,6 +48,7 @@ class OndaController extends Controller
      */
     public function destroy(Onda $onda)
     {
-        //
+        $onda->delete();
+        return response()->json("Dados removidos com sucesso");
     }
 }

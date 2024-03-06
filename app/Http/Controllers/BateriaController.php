@@ -22,8 +22,8 @@ class BateriaController extends Controller
      */
     public function store(StoreBateriaRequest $request)
     {
-        $data = Bateria::create($request->all());
-        return $data;
+        Bateria::create($request->all());
+        return response()->json("Dados cadastrados com sucesso");
     }
 
     /**
