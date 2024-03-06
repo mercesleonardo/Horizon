@@ -13,15 +13,8 @@ class SurfistaController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $surfistas = Surfista::all();
+        return $surfistas;
     }
 
     /**
@@ -29,38 +22,39 @@ class SurfistaController extends Controller
      */
     public function store(StoreSurfistaRequest $request)
     {
-        //
+        $data = Surfista::create($request->all());
+        return $data;
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Surfista $surfista)
+    public function show($id)
     {
-        //
-    }
+        // dd($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Surfista $surfista)
-    {
-        //
+        $surfista = Surfista::where('numero', $id)->first();
+
+        return $surfista;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSurfistaRequest $request, Surfista $surfista)
+    public function update(UpdateSurfistaRequest $request, $id)
     {
-        //
+
+        $data = $request->all();
+        Surfista::where('numero', $id)->update($data);
+        return response()->json("Dados atualizado com sucesso");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Surfista $surfista)
+    public function destroy($id)
     {
-        //
+        Surfista::where('numero', $id)->delete();
+        return response()->json("Dados removidos com sucesso");
     }
 }

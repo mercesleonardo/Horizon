@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('notas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('onda_id');
-            $table->float('notaParcial1');
-            $table->float('notaParcial2');
-            $table->float('notaParcial3');
+            $table->decimal('notaParcial1', 3, 1);
+            $table->decimal('notaParcial2', 3, 1);
+            $table->decimal('notaParcial3', 3, 1);
             $table->foreign('onda_id')->references('id')->on('ondas');
             $table->timestamps();
         });

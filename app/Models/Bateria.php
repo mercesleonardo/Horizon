@@ -9,7 +9,7 @@ class Bateria extends Model
 {
     use HasFactory;
     protected $table = "baterias";
-    protected $fillable = ["surfista_id"];
+    protected $fillable = ["surfista1", "surfista2"];
 
     public function surfistas()
     {

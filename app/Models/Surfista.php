@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Surfista extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = "surfistas";
-    protected $fillable = ["nome", "pais"];
+    protected $id = "numero";
+    protected $fillable = ["numero", "nome", "pais"];
 
     public function baterias()
     {

@@ -13,15 +13,8 @@ class BateriaController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $baterias = Bateria::all();
+        return $baterias;
     }
 
     /**
@@ -29,38 +22,36 @@ class BateriaController extends Controller
      */
     public function store(StoreBateriaRequest $request)
     {
-        //
+        $data = Bateria::create($request->all());
+        return $data;
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Bateria $bateria)
+    public function show($id)
     {
-        //
-    }
+        $bateria = Bateria::where('id', $id)->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Bateria $bateria)
-    {
-        //
+        return $bateria;
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBateriaRequest $request, Bateria $bateria)
+    public function update(UpdateBateriaRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        Bateria::where('id', $id)->update($data);
+        return response()->json("Dados atualizado com sucesso");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bateria $bateria)
+    public function destroy($id)
     {
-        //
+        Bateria::where('id', $id)->delete();
+        return response()->json("Dados removidos com sucesso");
     }
 }

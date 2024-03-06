@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('surfista_id');
             $table->unsignedBigInteger('bateria_id');
-            $table->foreign('surfista_id')->references('id')->on('surfistas');
+            $table->foreign('surfista_id')->references('numero')->on('surfistas');
             $table->foreign('bateria_id')->references('id')->on('baterias');
             $table->timestamps();
         });
