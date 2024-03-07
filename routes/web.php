@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::get('/media', [NotaController::class, 'media']);
+Route::get('/', function () {
+    return view('welcome');
+});

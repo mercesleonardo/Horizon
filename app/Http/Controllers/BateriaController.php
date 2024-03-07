@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Onda;
 use App\Models\Bateria;
+use App\Models\Surfista;
 use App\Http\Requests\StoreBateriaRequest;
 use App\Http\Requests\UpdateBateriaRequest;
 
@@ -13,7 +15,7 @@ class BateriaController extends Controller
      */
     public function index()
     {
-        $baterias = Bateria::all();
+        $baterias = Bateria::with('ondas')->get();
         return response()->json($baterias, 200);
     }
 
@@ -40,7 +42,37 @@ class BateriaController extends Controller
             return response()->json("Recurso solicitado não existe", 404);
         }
 
-        return response()->json($bateria, 200);
+        // $ondas = Onda::with(['baterias', 'surfistas', 'notas'])->get()->map(function($item, $key) {
+
+        //     $totalNotas = 0;
+        //     $contadorNotas = 0;
+
+        //     foreach ($item->notas as $nota) {
+
+        //         $totalNotas += $nota->notaParcial1 + $nota->notaParcial2 + $nota->notaParcial3;
+        //         $contadorNotas += 3;
+        //     }
+
+        //         $item->media = $contadorNotas > 0 ? $totalNotas / $contadorNotas : 0;
+
+        //         return $item;
+        // });
+
+        $bateria->ondas()->with('notas', 'surfistas')->get();
+
+        $bateria->ondas->each(function ($onda) {
+            $nota = $onda->notas->first();
+            if ($nota) {
+                $onda->media = ($nota->notaParcial1 + $nota->notaParcial2 + $nota->notaParcial3) / 3;
+            }
+        });
+
+        $media = $bateria->ondas->pluck('media')->toArray();
+
+        return response()->json([
+            'bateria' => $bateria,
+            'Média' => $media,
+        ], 200);
     }
 
     /**

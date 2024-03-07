@@ -11,14 +11,14 @@ class Onda extends Model
     protected $table = "ondas";
     protected $fillable = ["surfista_id", "bateria_id"];
 
-    public function surfista()
+    public function surfistas()
     {
-        return $this->belongsTo(Surfista::class);
+        return $this->belongsTo(Surfista::class, 'id', 'numero');
     }
 
-    public function bateria()
+    public function baterias()
     {
-        return $this->belongsTo(Bateria::class);
+        return $this->belongsTo(Bateria::class, 'bateria_id');
     }
 
     public function notas()

@@ -9,7 +9,7 @@ class Nota extends Model
 {
     use HasFactory;
     protected $table = "notas";
-    protected $fillable = ["onda_id", "notaParcial1", "notaParcial2", "notaParcial3",];
+    protected $fillable = ["onda_id", "notaParcial1", "notaParcial2", "notaParcial3"];
 
     public function onda()
     {

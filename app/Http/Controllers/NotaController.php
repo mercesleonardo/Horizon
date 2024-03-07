@@ -33,39 +33,6 @@ class NotaController extends Controller
         ], 200);
     }
 
-    public function media()
-    {
-        $media = Onda::join('surfistas', 'surfista_id', 'surfistas.numero')
-        ->join('baterias', 'bateria_id', 'baterias.id')
-        ->join('notas', 'ondas.id', 'notas.onda_id')
-        ->select(
-            [
-                'surfistas.numero',
-                'surfistas.nome',
-                'baterias.id',
-                'notas.id',
-                'notas.onda_id',
-                'notas.notaParcial1',
-                'notas.notaParcial2',
-                'notas.notaParcial3',
-            ]
-        )->get();
-
-        foreach ($media as $nota) {
-            $result = 'Nome: ' . $nota->nome . '\n' . 'Media: ' . ($nota->notaParcial1 + $nota->notaParcial2 + $nota->notaParcial3) / 3;
-            // echo "Nome: " . $nota->nome . " média: " . $result;
-
-        }
-
-        dd($result);
-
-        return view('welcome',[
-            'media' => $media,
-            'result' => $result
-        ]);
-
-    }
-
     /**
      * Display the specified resource.
      */
