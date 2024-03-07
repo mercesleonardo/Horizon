@@ -24,11 +24,11 @@ class NotaController extends Controller
     public function store(StoreNotaRequest $request)
     {
 
-        $nota = Nota::create($request->all());
+        $data = Nota::create($request->all());
 
         return response()->json([
-            'message' => 'Nota cadastrada com sucesso',
-            'nota' => $nota
+            'message' => 'Dados cadastrada com sucesso',
+            'nota' => $data
         ], 200);
     }
 

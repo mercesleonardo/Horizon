@@ -30,7 +30,7 @@ class StoreNotaRequest extends FormRequest
     }
 
     /**
-     * Obtenha mensagens de erro personalizadas para as regras de validação.
+     * Get the validation rules that apply to the request.
      *
      * @return array<string, string>
      */

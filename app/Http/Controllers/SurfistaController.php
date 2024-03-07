@@ -14,7 +14,7 @@ class SurfistaController extends Controller
     public function index()
     {
         $surfistas = Surfista::all();
-        return $surfistas;
+        return response()->json($surfistas, 200);
     }
 
     /**
@@ -22,8 +22,11 @@ class SurfistaController extends Controller
      */
     public function store(StoreSurfistaRequest $request)
     {
-        Surfista::create($request->all());
-        return response()->json("Dados cadastrados com sucesso");
+        $data = Surfista::create($request->all());
+        return response()->json([
+            'message' => 'Dados cadastradas com sucesso',
+            'surfista' => $data
+        ], 200);
     }
 
     /**
@@ -32,7 +35,15 @@ class SurfistaController extends Controller
     public function show($id)
     {
         $surfista = Surfista::where('numero', $id)->first();
-        return $surfista;
+
+        if (!$surfista) {
+
+            return response()->json("Recurso solicitado não existe", 404);
+
+        }
+
+        return response()->json($surfista, 200);
+
     }
 
     /**
@@ -42,8 +53,22 @@ class SurfistaController extends Controller
     {
 
         $data = $request->all();
-        Surfista::where('numero', $id)->update($data);
-        return response()->json("Dados atualizados com sucesso");
+        $surfista = Surfista::where('numero', $id)->first();
+
+        if (!$surfista) {
+            return response()->json("Surfista não encontrado", 404);
+        }
+
+        if (empty($data)) {
+            return response()->json("Nenhum dado fornecido para atualização", 400);
+        }
+
+        $surfista = Surfista::where('numero', $id)->update($data);
+
+        return response()->json([
+            'message' => 'Surfista atualizado com sucesso',
+            'surfista' => $surfista
+        ], 200);
     }
 
     /**
@@ -51,7 +76,13 @@ class SurfistaController extends Controller
      */
     public function destroy($id)
     {
-        Surfista::where('numero', $id)->delete();
+        $surfista = Surfista::where('numero', $id)->first();
+
+        if (!$surfista) {
+            return response()->json("Não foi possível excluir o surfista, recurso não encontrado", 404);
+        }
+
+        $surfista = Surfista::where('numero', $id)->delete();
         return response()->json("Dados removidos com sucesso");
     }
 }
