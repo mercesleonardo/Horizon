@@ -22,8 +22,8 @@ class UpdateBateriaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'surfista1' => 'required|exists:surfistas,numero',
-            'surfista2' => 'required|exists:surfistas,numero',
+            'surfista1' => 'exists:surfistas,numero',
+            'surfista2' => 'exists:surfistas,numero',
         ];
     }
 
@@ -35,7 +35,6 @@ class UpdateBateriaRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'required' => 'O campo :attribute é obrigatório.',
             'exists' => 'O campo :attribute não foi encontrado',
         ];
     }

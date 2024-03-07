@@ -22,8 +22,8 @@ class UpdateOndaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'surfista_id' => 'required|exists:surfistas,numero',
-            'bateria_id' => 'required|exists:baterias,id',
+            'surfista_id' => 'exists:surfistas,numero',
+            'bateria_id' => 'exists:baterias,id',
         ];
     }
 
@@ -35,7 +35,6 @@ class UpdateOndaRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'required' => 'O campo :attribute é obrigatório.',
             'exists' => 'O campo :attribute precisa ser um id válido.',
         ];
     }

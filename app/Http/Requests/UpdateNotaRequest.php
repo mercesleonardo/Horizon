@@ -22,7 +22,7 @@ class UpdateNotaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'onda_id' => 'required|exists:ondas,id',
+            'onda_id' => 'exists:ondas,id',
             'notaParcial1' => 'required|numeric|min:0|max:10',
             'notaParcial2' => 'required|numeric|min:0|max:10',
             'notaParcial3' => 'required|numeric|min:0|max:10',
