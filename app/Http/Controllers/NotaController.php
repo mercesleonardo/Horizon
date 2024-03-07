@@ -27,7 +27,7 @@ class NotaController extends Controller
         $data = Nota::create($request->all());
 
         return response()->json([
-            'message' => 'Dados cadastrada com sucesso',
+            'message' => 'Dados cadastrados com sucesso',
             'nota' => $data
         ], 200);
     }

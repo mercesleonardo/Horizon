@@ -14,7 +14,7 @@ class BateriaController extends Controller
     public function index()
     {
         $baterias = Bateria::all();
-        return $baterias;
+        return response()->json($baterias, 200);
     }
 
     /**
@@ -22,8 +22,11 @@ class BateriaController extends Controller
      */
     public function store(StoreBateriaRequest $request)
     {
-        Bateria::create($request->all());
-        return response()->json("Dados cadastrados com sucesso");
+        $data = Bateria::create($request->all());
+        return response()->json([
+            'message' => 'Dados cadastrados com sucesso',
+            'bateria' => $data
+        ], 200);
     }
 
     /**
@@ -31,9 +34,13 @@ class BateriaController extends Controller
      */
     public function show($id)
     {
-        $bateria = Bateria::where('id', $id)->first();
+        $bateria = Bateria::find($id);
 
-        return $bateria;
+        if (!$bateria) {
+            return response()->json("Recurso solicitado não existe", 404);
+        }
+
+        return response()->json($bateria, 200);
     }
 
     /**
@@ -41,9 +48,24 @@ class BateriaController extends Controller
      */
     public function update(UpdateBateriaRequest $request, $id)
     {
+        $bateria = Bateria::find($id);
+
+        if (!$bateria) {
+            return response()->json("Bateria não encontrada", 404);
+        }
+
         $data = $request->all();
-        Bateria::where('id', $id)->update($data);
-        return response()->json("Dados atualizado com sucesso");
+
+        if (empty($data)) {
+            return response()->json("Nenhum dado fornecido para atualização", 400);
+        }
+
+        $bateria->update($data);
+
+        return response()->json([
+            'message' => 'Bateria atualizada com sucesso',
+            'bateria' => $bateria
+        ], 200);
     }
 
     /**
@@ -51,7 +73,14 @@ class BateriaController extends Controller
      */
     public function destroy($id)
     {
-        Bateria::where('id', $id)->delete();
+        $bateria = Bateria::find($id);
+
+        if (!$bateria) {
+            return response()->json("Não foi possível excluir a bateria, recurso não encontrado", 404);
+        }
+
+        $bateria->delete();
+
         return response()->json("Dados removidos com sucesso");
     }
 }

@@ -22,7 +22,21 @@ class UpdateBateriaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'surfista1' => 'required|exists:surfistas,numero',
+            'surfista2' => 'required|exists:surfistas,numero',
+        ];
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'required' => 'O campo :attribute é obrigatório.',
+            'exists' => 'O campo :attribute não foi encontrado',
         ];
     }
 }

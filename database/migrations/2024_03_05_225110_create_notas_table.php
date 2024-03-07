@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('notaParcial1', 3, 1);
             $table->decimal('notaParcial2', 3, 1);
             $table->decimal('notaParcial3', 3, 1);
-            $table->foreign('onda_id')->references('id')->on('ondas');
+            $table->foreign('onda_id')->references('id')->on('ondas')->onDelete('cascade');
             $table->timestamps();
         });
     }
