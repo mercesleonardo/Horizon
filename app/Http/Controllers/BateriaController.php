@@ -73,7 +73,7 @@ class BateriaController extends Controller
         foreach ($somaOndas as  $soma) {
 
             $onda = Onda::with('surfista')->find($soma['id']);
-            // dd($onda);
+
             if(!isset($surfistaNotas[$onda->surfista->nome])) {
 
                 $surfistaNotas = array_merge($surfistaNotas, [$onda->surfista->nome=>[$soma['nota']]]);
@@ -90,6 +90,7 @@ class BateriaController extends Controller
             rsort($surfista);
             array_push($resultado, ['surfista'=>$key, 'nota'=>($surfista[0] + $surfista[1])]);
         }
+
         arsort($resultado);
 
         $notas = array_column($resultado, "nota");
@@ -100,11 +101,9 @@ class BateriaController extends Controller
         $maior_nota = $notas[$maior_nota_indice];
         $melhor_surfista = $surfistas[$maior_nota_indice];
 
-        dd("A maior nota é: " . $maior_nota . " (" . $melhor_surfista . ")");
-
         return response()->json([
-            'ondas' => $ondas,
-
+            'Ganhador' => $melhor_surfista,
+            'Pontuação total da bateria' => $maior_nota
         ], 200);
     }
 
