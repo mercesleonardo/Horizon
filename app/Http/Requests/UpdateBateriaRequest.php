@@ -22,8 +22,8 @@ class UpdateBateriaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'surfista1' => 'exists:surfistas,numero',
-            'surfista2' => 'exists:surfistas,numero',
+            'surfista1' => 'exists:surfistas,id',
+            'surfista2' => 'exists:surfistas,id',
         ];
     }
 

@@ -10,8 +10,7 @@ class Surfista extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = "surfistas";
-    protected $id = "numero";
-    protected $fillable = ["numero", "nome", "pais"];
+    protected $fillable = ["nome", "pais"];
 
     public function baterias()
     {
@@ -20,6 +19,6 @@ class Surfista extends Model
 
     public function ondas()
     {
-        return $this->hasMany(Onda::class);
+        return $this->hasMany(Onda::class, 'surfista_id');
     }
 }

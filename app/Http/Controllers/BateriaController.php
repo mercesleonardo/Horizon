@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Onda;
+use App\Models\Nota;
 use App\Models\Bateria;
 use App\Models\Surfista;
 use App\Http\Requests\StoreBateriaRequest;
@@ -31,6 +32,17 @@ class BateriaController extends Controller
         ], 200);
     }
 
+    function obterSomaDuasMaioresNotas($notas) {
+        // Ordenar as notas em ordem decrescente
+        usort($notas, function($a, $b) {
+          return $b->nota - $a->nota;
+        });
+
+        // Retornar a soma das duas maiores notas
+        return $notas[0]->nota + $notas[1]->nota;
+      }
+
+
     /**
      * Display the specified resource.
      */
@@ -46,36 +58,66 @@ class BateriaController extends Controller
             return response()->json("Recurso solicitado não existe", 404);
         }
 
-        // $ondas = Onda::with(['baterias', 'surfistas', 'notas'])->get()->map(function($item, $key) {
+        $ondas = Onda::with('notas', 'surfista')->where('bateria_id' , $bateria->id)->get();
 
-        //     $totalNotas = 0;
-        //     $contadorNotas = 0;
+        // $ondas->baterias;
+        // dd($ondas);
 
-        //     foreach ($item->notas as $nota) {
+        $somaOndas = [];
 
-        //         $totalNotas += $nota->notaParcial1 + $nota->notaParcial2 + $nota->notaParcial3;
-        //         $contadorNotas += 3;
-        //     }
+        foreach($ondas as $onda) {
 
-        //         $item->media = $contadorNotas > 0 ? $totalNotas / $contadorNotas : 0;
+            foreach($onda->notas as $nota) {
+                $notaFinal = ($nota->notaParcial1 + $nota->notaParcial2 + $nota->notaParcial3) / 3;
+                array_push($somaOndas, ['id'=>$nota->onda_id, 'nota'=>$notaFinal]);
+            };
 
-        //         return $item;
-        // });
+        };
 
-        $bateria->ondas()->with('notas', 'surfistas')->get();
+        // dd($somaOndas);
 
-        $bateria->ondas->each(function ($onda) {
-            $nota = $onda->notas->first();
-            if ($nota) {
-                $onda->media = ($nota->notaParcial1 + $nota->notaParcial2 + $nota->notaParcial3) / 3;
+
+
+        $surfistaNotas = [];
+
+        foreach ($somaOndas as  $soma) {
+
+            $onda = Onda::with('surfista')->find($soma['id']);
+            // dd($onda);
+            if(!isset($surfistaNotas[$onda->surfista->nome])) {
+
+                $surfistaNotas = array_merge($surfistaNotas, [$onda->surfista->nome=>[$soma['nota']]]);
+
+            } else {
+                $surfistaNotas[$onda->surfista->nome] = array_merge($surfistaNotas[$onda->surfista->nome], [$soma['nota']]);
             }
-        });
 
-        $media = $bateria->ondas->pluck('media')->toArray();
+        }
+
+
+
+        $resultado = [];
+
+        foreach ($surfistaNotas as $key=>$surfista) {
+            rsort($surfista);
+            array_push($resultado, ['surfista'=>$key, 'nota'=>($surfista[0] + $surfista[1])]);
+        }
+        arsort($resultado);
+        // $ganhador = max(array_column($resultado, 'nota', 'surfista'));
+
+        $notas = array_column($resultado, "nota");
+        $surfistas = array_column($resultado, "surfista");
+
+        $maior_nota_indice = max(array_keys($notas));
+
+        $maior_nota = $notas[$maior_nota_indice];
+        $melhor_surfista = $surfistas[$maior_nota_indice];
+
+        dd("A maior nota é: " . $maior_nota . " (" . $melhor_surfista . ")");
 
         return response()->json([
-            'bateria' => $bateria,
-            'Média' => $media,
+            'ondas' => $ondas,
+            
         ], 200);
     }
 

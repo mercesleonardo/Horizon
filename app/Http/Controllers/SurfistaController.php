@@ -34,7 +34,7 @@ class SurfistaController extends Controller
      */
     public function show($id)
     {
-        $surfista = Surfista::where('numero', $id)->first();
+        $surfista = Surfista::find($id);
 
         if (!$surfista) {
 
@@ -52,18 +52,19 @@ class SurfistaController extends Controller
     public function update(UpdateSurfistaRequest $request, $id)
     {
 
-        $data = $request->all();
-        $surfista = Surfista::where('numero', $id)->first();
+        $surfista = Surfista::find($id);
 
         if (!$surfista) {
             return response()->json("Surfista não encontrado", 404);
         }
 
+        $data = $request->all();
+
         if (empty($data)) {
             return response()->json("Nenhum dado fornecido para atualização", 400);
         }
 
-        $surfista = Surfista::where('numero', $id)->update($data);
+        $surfista->update($data);
 
         return response()->json([
             'message' => 'Surfista atualizado com sucesso',
@@ -76,13 +77,13 @@ class SurfistaController extends Controller
      */
     public function destroy($id)
     {
-        $surfista = Surfista::where('numero', $id)->first();
+        $surfista = Surfista::find($id);
 
         if (!$surfista) {
             return response()->json("Não foi possível excluir o surfista, recurso não encontrado", 404);
         }
 
-        $surfista = Surfista::where('numero', $id)->delete();
+        $surfista->delete();
         return response()->json("Dados removidos com sucesso");
     }
 }

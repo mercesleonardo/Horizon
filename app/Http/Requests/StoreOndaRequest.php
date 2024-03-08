@@ -22,7 +22,7 @@ class StoreOndaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'surfista_id' => 'exists:surfistas,numero',
+            'surfista_id' => 'exists:surfistas,id',
             'bateria_id' => 'exists:baterias,id',
         ];
     }

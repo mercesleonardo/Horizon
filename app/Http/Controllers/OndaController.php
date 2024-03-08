@@ -75,8 +75,6 @@ class OndaController extends Controller
     {
         $onda = Onda::find($id);
 
-        // dd($onda);
-
         if (!$onda) {
             return response()->json("Não foi possível excluir a onda, recurso não encontrado", 404);
         }
