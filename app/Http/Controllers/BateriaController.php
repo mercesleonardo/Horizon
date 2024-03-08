@@ -36,6 +36,10 @@ class BateriaController extends Controller
      */
     public function show($id)
     {
+
+        // Uma Nota consiste na média aritmética das 3 notas parciais que a compõem
+        // O vencedor de uma Bateria é o Surfista cuja soma das duas maiores Notas for superior à do outro
+
         $bateria = Bateria::find($id);
 
         if (!$bateria) {
