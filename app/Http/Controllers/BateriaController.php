@@ -49,9 +49,6 @@ class BateriaController extends Controller
     public function show($id)
     {
 
-        // Uma Nota consiste na média aritmética das 3 notas parciais que a compõem
-        // O vencedor de uma Bateria é o Surfista cuja soma das duas maiores Notas for superior à do outro
-
         $bateria = Bateria::find($id);
 
         if (!$bateria) {
@@ -59,9 +56,6 @@ class BateriaController extends Controller
         }
 
         $ondas = Onda::with('notas', 'surfista')->where('bateria_id' , $bateria->id)->get();
-
-        // $ondas->baterias;
-        // dd($ondas);
 
         $somaOndas = [];
 
@@ -73,10 +67,6 @@ class BateriaController extends Controller
             };
 
         };
-
-        // dd($somaOndas);
-
-
 
         $surfistaNotas = [];
 
@@ -94,8 +84,6 @@ class BateriaController extends Controller
 
         }
 
-
-
         $resultado = [];
 
         foreach ($surfistaNotas as $key=>$surfista) {
@@ -103,7 +91,6 @@ class BateriaController extends Controller
             array_push($resultado, ['surfista'=>$key, 'nota'=>($surfista[0] + $surfista[1])]);
         }
         arsort($resultado);
-        // $ganhador = max(array_column($resultado, 'nota', 'surfista'));
 
         $notas = array_column($resultado, "nota");
         $surfistas = array_column($resultado, "surfista");
@@ -117,7 +104,7 @@ class BateriaController extends Controller
 
         return response()->json([
             'ondas' => $ondas,
-            
+
         ], 200);
     }
 
