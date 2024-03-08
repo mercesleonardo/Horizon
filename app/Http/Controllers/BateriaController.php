@@ -52,6 +52,7 @@ class BateriaController extends Controller
         $bateria = Bateria::find($id);
 
         if (!$bateria) {
+
             return response()->json("Recurso solicitado não existe", 404);
         }
 
@@ -62,6 +63,7 @@ class BateriaController extends Controller
         foreach($ondas as $onda) {
 
             foreach($onda->notas as $nota) {
+
                 $notaFinal = ($nota->notaParcial1 + $nota->notaParcial2 + $nota->notaParcial3) / 3;
                 array_push($somaOndas, ['id'=>$nota->onda_id, 'nota'=>$notaFinal]);
             };
@@ -79,31 +81,37 @@ class BateriaController extends Controller
                 $surfistaNotas = array_merge($surfistaNotas, [$onda->surfista->nome=>[$soma['nota']]]);
 
             } else {
+                
                 $surfistaNotas[$onda->surfista->nome] = array_merge($surfistaNotas[$onda->surfista->nome], [$soma['nota']]);
             }
 
         }
 
-        $resultado = [];
+        $resultados = [];
 
         foreach ($surfistaNotas as $key=>$surfista) {
+
             rsort($surfista);
-            array_push($resultado, ['surfista'=>$key, 'nota'=>($surfista[0] + $surfista[1])]);
+            array_push($resultados, ['surfista'=>$key, 'nota'=>($surfista[0] + $surfista[1])]);
         }
 
-        arsort($resultado);
+        arsort($resultados);
 
-        $notas = array_column($resultado, "nota");
-        $surfistas = array_column($resultado, "surfista");
+        $vencedor = null;
+        $maiorNota = 0;
 
-        $maior_nota_indice = max(array_keys($notas));
+        foreach ($resultados as $resultado) {
 
-        $maior_nota = $notas[$maior_nota_indice];
-        $melhor_surfista = $surfistas[$maior_nota_indice];
+            if ($resultado['nota'] > $maiorNota) {
+
+                $maiorNota = $resultado['nota'];
+                $vencedor = $resultado['surfista'];
+            }
+        }
 
         return response()->json([
-            'Ganhador' => $melhor_surfista,
-            'Pontuação total da bateria' => $maior_nota
+            'Ganhador' => $vencedor,
+            'Pontuação total da bateria' => $maiorNota,
         ], 200);
     }
 
