@@ -35,6 +35,8 @@ Antes de começar a usar o projeto, você precisa configurar o acesso ao banco d
 - DB_USERNAME=homestead - Substitua homestead pelo seu nome de usuário do banco de dados.
 - DB_PASSWORD=secret - Substitua secret pela sua senha do banco de dados.
 
+3. Após a configuração, você pode rodar o comando: php artisan migrate
+
 ## Testando a API com Postman
 
 1. **Instale o Postman**: Se você ainda não tem o Postman instalado, você pode baixá-lo do site oficial do Postman.
