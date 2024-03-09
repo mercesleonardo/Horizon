@@ -17,7 +17,7 @@ Aplicação usando uma API para transmitir e gerenciar o Circuito Mundial de Sur
 1. Clone o repositório: git clone `https://github.com/mercesleonardo/Horizon`
 2. Navegue até o diretório do projeto: `cd horizon`
 3. Instale as dependências: `composer install`
-4. Copie o arquivo .env.example para .env: cp .env.example .env
+4. Copie o arquivo `.env.example para .env: cp .env.example .env`
 5. Gere a chave do aplicativo: `php artisan key:generate`
 6. Inicie o servidor: `php artisan serve`
 
@@ -63,6 +63,6 @@ Este projeto está licenciado sob a licença MIT.
 Se você tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato:
 
 - Email: `leonardokarvalho@gmail.com`
-- LinkedIn: https://www.linkedin.com/in/mercesleonardo/
+- LinkedIn: `https://www.linkedin.com/in/mercesleonardo/`
 
 
