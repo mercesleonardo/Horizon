@@ -41,9 +41,9 @@ Antes de começar a usar o projeto, você precisa configurar o acesso ao banco d
 
 1. **Instale o Postman**: Se você ainda não tem o Postman instalado, você pode baixá-lo do site oficial do Postman.
 
-2. **Importe a coleção do Postman**: No Postman, clique no botão "Import" no canto superior esquerdo. Em seguida, você pode escolher o arquivo ou link da coleção do Postman que você deseja importar.
+2. **Lista das rotas**: No VsCode rode o comando `php artisan route:list` para saber as rotas e os parâmetros.
 
-3. **Selecione a requisição**: Após importar a coleção, você verá uma lista de requisições na barra lateral esquerda. Clique na requisição que você deseja testar.
+3. **Selecione a requisição**: Você poderá incluir uma lista de requisições na barra lateral esquerda. Escolha na requisição que você deseja testar.
 
 4. **Envie a requisição**: Depois de selecionar a requisição, clique no botão "Send" para enviar a requisição para a API. Você verá a resposta da API no painel à direita.
 
@@ -62,7 +62,7 @@ Este projeto está licenciado sob a licença MIT.
 
 Se você tiver alguma dúvida ou sugestão, sinta-se à vontade para entrar em contato:
 
-- Email: leonardokarvalho@gmail.com
+- Email: `leonardokarvalho@gmail.com`
 - LinkedIn: https://www.linkedin.com/in/mercesleonardo/
 
 
