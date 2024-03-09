@@ -14,12 +14,12 @@ Aplicação usando uma API para transmitir e gerenciar o Circuito Mundial de Sur
 
 ## Instalação
 
-1. Clone o repositório: git clone https://github.com/mercesleonardo/Horizon
-2. Navegue até o diretório do projeto: cd horizon
-3. Instale as dependências: composer install
+1. Clone o repositório: git clone `https://github.com/mercesleonardo/Horizon`
+2. Navegue até o diretório do projeto: `cd horizon`
+3. Instale as dependências: `composer install`
 4. Copie o arquivo .env.example para .env: cp .env.example .env
-5. Gere a chave do aplicativo: php artisan key:generate
-6. Inicie o servidor: php artisan serve
+5. Gere a chave do aplicativo: `php artisan key:generate`
+6. Inicie o servidor: `php artisan serve`
 
 ## Configuração do Banco de Dados
 
@@ -35,7 +35,7 @@ Antes de começar a usar o projeto, você precisa configurar o acesso ao banco d
 - DB_USERNAME=homestead - Substitua homestead pelo seu nome de usuário do banco de dados.
 - DB_PASSWORD=secret - Substitua secret pela sua senha do banco de dados.
 
-3. Após a configuração, você pode rodar o comando: php artisan migrate
+3. Após a configuração, você pode rodar o comando: `php artisan migrate`
 
 ## Testando a API com Postman
 
