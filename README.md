@@ -28,12 +28,12 @@ Antes de começar a usar o projeto, você precisa configurar o acesso ao banco d
 1. Abra o arquivo .env na raiz do projeto.
 2. Procure pelas seguintes linhas:
 
-DB_CONNECTION=mysql - Substitua mysql pelo tipo do seu banco de dados.
-DB_HOST=127.0.0.1 - Substitua 127.0.0.1 pelo endereço do seu servidor de banco de dados.
-DB_PORT=3306 - Substitua 3306 pela porta do seu servidor de banco de dados.
-DB_DATABASE=homestead - Substitua homestead pelo nome do seu banco de dados.
-DB_USERNAME=homestead - Substitua homestead pelo seu nome de usuário do banco de dados.
-DB_PASSWORD=secret - Substitua secret pela sua senha do banco de dados.
+- DB_CONNECTION=mysql - Substitua mysql pelo tipo do seu banco de dados.
+- DB_HOST=127.0.0.1 - Substitua 127.0.0.1 pelo endereço do seu servidor de banco de dados.
+- DB_PORT=3306 - Substitua 3306 pela porta do seu servidor de banco de dados.
+- DB_DATABASE=homestead - Substitua homestead pelo nome do seu banco de dados.
+- DB_USERNAME=homestead - Substitua homestead pelo seu nome de usuário do banco de dados.
+- DB_PASSWORD=secret - Substitua secret pela sua senha do banco de dados.
 
 ## Testando a API com Postman
 
