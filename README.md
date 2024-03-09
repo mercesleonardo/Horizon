@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Aplicação usando uma API para transmitir e gerenciar o Circuito Mundial de Surfe
+Aplicação usando uma API para gerenciar o Circuito Mundial de Surfe
 
 ## Pré-requisitos
 
