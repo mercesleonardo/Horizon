@@ -16,7 +16,7 @@ class Onda extends Model
         return $this->belongsTo(Surfista::class, 'surfista_id');
     }
 
-    public function baterias()
+    public function bateria()
     {
         return $this->belongsTo(Bateria::class, 'bateria_id');
     }

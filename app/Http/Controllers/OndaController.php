@@ -37,7 +37,7 @@ class OndaController extends Controller
         $onda = Onda::find($id);
 
         if (!$onda) {
-            return response()->json("Recurso solicitado não existe", 404);
+            return response()->json("Onda solicitada não existe", 404);
         }
 
         return response()->json($onda, 200);

@@ -16,7 +16,7 @@ class BateriaController extends Controller
      */
     public function index()
     {
-        $baterias = Bateria::with('ondas')->get();
+        $baterias = Bateria::get();
         return response()->json($baterias, 200);
     }
 
@@ -32,17 +32,6 @@ class BateriaController extends Controller
         ], 200);
     }
 
-    function obterSomaDuasMaioresNotas($notas) {
-        // Ordenar as notas em ordem decrescente
-        usort($notas, function($a, $b) {
-          return $b->nota - $a->nota;
-        });
-
-        // Retornar a soma das duas maiores notas
-        return $notas[0]->nota + $notas[1]->nota;
-      }
-
-
     /**
      * Display the specified resource.
      */
@@ -53,40 +42,52 @@ class BateriaController extends Controller
 
         if (!$bateria) {
 
-            return response()->json("Recurso solicitado não existe", 404);
+            return response()->json("Bateria solicitada não existe", 404);
         }
 
         $ondas = Onda::with('notas', 'surfista')->where('bateria_id' , $bateria->id)->get();
 
-        $somaOndas = [];
+        /**
+         * Variável: $medias
+         * Descrição: Esta variável é um array que será usado para armazenar as médias das notas para cada onda.
+         */
+        $medias = [];
 
         foreach($ondas as $onda) {
 
             foreach($onda->notas as $nota) {
 
                 $notaFinal = ($nota->notaParcial1 + $nota->notaParcial2 + $nota->notaParcial3) / 3;
-                array_push($somaOndas, ['id'=>$nota->onda_id, 'nota'=>$notaFinal]);
+                array_push($medias, ['id'=>$nota->onda_id, 'nota'=>$notaFinal]);
             };
 
         };
 
+        /**
+         * Variável: $surfistaNotas
+         * Descrição: Esta variável é um array que será usado para armazenar as notas médias de cada surfista.
+         */
         $surfistaNotas = [];
 
-        foreach ($somaOndas as  $soma) {
+        foreach ($medias as  $media) {
 
-            $onda = Onda::with('surfista')->find($soma['id']);
+            $onda = Onda::with('surfista')->find($media['id']);
 
             if(!isset($surfistaNotas[$onda->surfista->nome])) {
 
-                $surfistaNotas = array_merge($surfistaNotas, [$onda->surfista->nome=>[$soma['nota']]]);
+                $surfistaNotas = array_merge($surfistaNotas, [$onda->surfista->nome=>[$media['nota']]]);
 
             } else {
-                
-                $surfistaNotas[$onda->surfista->nome] = array_merge($surfistaNotas[$onda->surfista->nome], [$soma['nota']]);
+
+                $surfistaNotas[$onda->surfista->nome] = array_merge($surfistaNotas[$onda->surfista->nome], [$media['nota']]);
             }
 
         }
 
+        /**
+         * Variável: $resultados
+         * Descrição: Esta variável é um array que será usado para armazenar os resultados finais de cada surfista.
+         */
         $resultados = [];
 
         foreach ($surfistaNotas as $key=>$surfista) {
@@ -95,8 +96,14 @@ class BateriaController extends Controller
             array_push($resultados, ['surfista'=>$key, 'nota'=>($surfista[0] + $surfista[1])]);
         }
 
-        arsort($resultados);
 
+        arsort($resultados);
+        // dd($resultados);
+
+        /**
+         * Variáveis: $vencedor, $maiorNota
+         * Descrição: Ao final deste trecho de código, a variável $vencedor será o surfista com a maior nota e a variável $maiorNota será a maior nota.
+         */
         $vencedor = null;
         $maiorNota = 0;
 
@@ -110,8 +117,8 @@ class BateriaController extends Controller
         }
 
         return response()->json([
-            'Ganhador' => $vencedor,
-            'Pontuação total da bateria' => $maiorNota,
+            'Ganhador' => $vencedor ? $vencedor : "Ainda não existe um vencedor para a bateria",
+            'Pontuação total da bateria' => $maiorNota ? $maiorNota : "Pontuação da bateria ainda não foi calculada",
         ], 200);
     }
 

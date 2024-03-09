@@ -38,7 +38,7 @@ class SurfistaController extends Controller
 
         if (!$surfista) {
 
-            return response()->json("Recurso solicitado não existe", 404);
+            return response()->json("Surfista solicitado não existe", 404);
 
         }
 

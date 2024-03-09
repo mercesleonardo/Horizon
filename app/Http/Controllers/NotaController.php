@@ -41,7 +41,7 @@ class NotaController extends Controller
         $nota = Nota::find($id);
 
         if (!$nota) {
-            return response()->json("Recurso solicitado não existe", 404);
+            return response()->json("Nota solicitada não existe", 404);
         }
 
         return response()->json($nota, 200);
