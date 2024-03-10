@@ -116,10 +116,16 @@ class BateriaController extends Controller
             }
         }
 
-        return response()->json([
-            'Ganhador' => $vencedor ? $vencedor : "Ainda não existe um vencedor para a bateria",
-            'Pontuação total da bateria' => $maiorNota ? $maiorNota : "Pontuação da bateria ainda não foi calculada",
-        ], 200);
+        $resposta = [
+            'Bateria' => $bateria->id,
+            'Resultados' => $resultados ?: "Aguarde o lançamento dos resultados",
+            'Ganhador' => [
+                'nome' => $vencedor ?: "Ainda não existe um vencedor",
+                'pontuação' => $maiorNota ?: "Pontuação ainda não foi calculada"
+            ]
+        ];
+
+        return response()->json($resposta, 200);
     }
 
     /**
