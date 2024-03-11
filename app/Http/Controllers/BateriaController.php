@@ -47,11 +47,7 @@ class BateriaController extends Controller
 
         $ondas = Onda::with('notas', 'surfista')->where('bateria_id' , $bateria->id)->get();
 
-        /**
-         * Variável: $medias
-         * Descrição: Esta variável é um array que será usado para armazenar as médias das notas para cada onda.
-         */
-        $medias = [];
+        $medias = []; // Esta variável é um array que será usado para armazenar as médias das notas para cada onda.
 
         foreach($ondas as $onda) {
 
@@ -62,12 +58,8 @@ class BateriaController extends Controller
             };
 
         };
-
-        /**
-         * Variável: $surfistaNotas
-         * Descrição: Esta variável é um array que será usado para armazenar as notas médias de cada surfista.
-         */
-        $surfistaNotas = [];
+        
+        $surfistaNotas = []; //Esta variável é um array que será usado para armazenar as notas médias de cada surfista.
 
         foreach ($medias as  $media) {
 
@@ -84,11 +76,7 @@ class BateriaController extends Controller
 
         }
 
-        /**
-         * Variável: $resultados
-         * Descrição: Esta variável é um array que será usado para armazenar os resultados finais de cada surfista.
-         */
-        $resultados = [];
+        $resultados = []; //Esta variável é um array que será usado para armazenar os resultados finais de cada surfista.
 
         foreach ($surfistaNotas as $key=>$surfista) {
 
@@ -98,12 +86,8 @@ class BateriaController extends Controller
 
 
         arsort($resultados);
-        // dd($resultados);
 
-        /**
-         * Variáveis: $vencedor, $maiorNota
-         * Descrição: Ao final deste trecho de código, a variável $vencedor será o surfista com a maior nota e a variável $maiorNota será a maior nota.
-         */
+        //Ao final deste trecho de código, a variável $vencedor será o surfista com a maior nota e a variável $maiorNota será a maior nota.
         $vencedor = null;
         $maiorNota = 0;
 
