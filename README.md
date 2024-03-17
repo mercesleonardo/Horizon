@@ -17,8 +17,8 @@ Aplicação usando uma API para gerenciar o Circuito Mundial de Surfe
 1. Clone o repositório: git clone `https://github.com/mercesleonardo/Horizon`
 2. Navegue até o diretório do projeto: `cd horizon`
 3. Instale as dependências: `composer install`
-4. Copie o arquivo `.env.example para .env: cp .env.example .env`
-5. Gere a chave do aplicativo: `php artisan key:generate`
+4. Cria o arquivo .env: `composer run post-root-package-install`
+5. Gere a chave do aplicativo: `composer run post-create-project-cmd`
 6. Inicie o servidor: `php artisan serve`
 
 ## Configuração do Banco de Dados
@@ -41,7 +41,7 @@ Antes de começar a usar o projeto, você precisa configurar o acesso ao banco d
 
 1. **Instale o Postman**: Se você ainda não tem o Postman instalado, você pode baixá-lo do site oficial do Postman.
 
-2. **Lista das rotas**: No VsCode rode o comando `php artisan route:list` para saber as rotas e os parâmetros.
+2. **Lista das rotas**: Rode o comando `php artisan route:list` para saber as rotas e os parâmetros.
 
 3. **Selecione a requisição**: Você poderá incluir uma lista de requisições na barra lateral esquerda. Escolha na requisição que você deseja testar.
 
